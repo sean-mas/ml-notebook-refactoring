@@ -22,3 +22,8 @@ dev = [
 required-version = ">=0.13.5"
 # Apply certificate fixes without adding unused runtime packages.
 constraint-dependencies = ["certifi>=2026.10.19", "pip>=26.2.2"]
+
+[tool.pytest.ini_options]
+# Lets `from src.king_county...` work with plain `pytest`, not only `python -m pytest`.
+pythonpath = ["."]
+testpaths = ["tests"]

@@ -10,7 +10,7 @@ A small FastAPI app that creates, reads, updates and deletes houses stored in Po
 | `bathrooms` | number | 0.5 to 8.0 |
 | `sqft_living` | integer | 370 to 13540 |
 | `grade` | integer | 3 to 13 |
-| `zipcode` | string | five digits starting with `98`, for example `"98103"` |
+| `zipcode` | string | five digits from 98001 to 98199 (the range of the 70 King County ZIP codes in the data), for example `"98103"` |
 
 The bounds are the minimum and maximum of each feature in the cleaned training data: `data/King_County_House_prices_dataset.csv` without the rows where `bathrooms / bedrooms` is 2 or more, or 0.10 or less (this drops the 33-bedroom row). A price model only knows the range it was trained on, so the API rejects houses outside it with a `422` response instead of storing them. The bounds live as named constants at the top of `app/schemas.py`.
 

@@ -14,8 +14,8 @@ SQFT_LIVING_MIN = 370
 SQFT_LIVING_MAX = 13540
 GRADE_MIN = 3
 GRADE_MAX = 13
-# Five-digit King County ZIP code, for example "98103".
-ZIPCODE_PATTERN = r"^98\d{3}$"
+# The 70 King County ZIP codes in the data all lie between 98001 and 98199.
+ZIPCODE_PATTERN = r"^98[01]\d{2}$"
 
 
 class HouseBase(BaseModel):

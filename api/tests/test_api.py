@@ -3,8 +3,9 @@
 import os
 from collections.abc import Generator
 
-# app.database raises without DB_CONN, so give it a harmless default before import.
-os.environ.setdefault("DB_CONN", "sqlite://")
+# app.database raises without DB_CONN, and app.main creates tables on import.
+# Always point it at SQLite so the tests never touch a real database.
+os.environ["DB_CONN"] = "sqlite://"
 
 import pytest
 from fastapi.testclient import TestClient
@@ -173,12 +174,14 @@ def test_training_data_bounds_are_inclusive(client: TestClient, house: dict) -> 
         {**VALID_HOUSE, "bedrooms": schemas.BEDROOMS_MAX + 1},
         {**VALID_HOUSE, "grade": schemas.GRADE_MIN - 1},
         {**VALID_HOUSE, "zipcode": "10001"},
+        {**VALID_HOUSE, "zipcode": "98501"},
         {key: value for key, value in VALID_HOUSE.items() if key != "sqft_living"},
     ],
     ids=[
         "bedrooms-above-max",
         "grade-below-min",
-        "zipcode-outside-king-county",
+        "zipcode-outside-washington",
+        "zipcode-outside-king-county-range",
         "missing-field",
     ],
 )

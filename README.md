@@ -148,32 +148,22 @@ Cell numbers refer to [`King-County.ipynb`](King-County.ipynb), counted from 0.
 
 ## Answers to the Project Questions
 
-<!-- Draft notes. Rewrite these in your own words before submitting. -->
-
 ### What steps did you take to complete the project?
 
-- Read the notebook cell by cell and listed every problem (table above) before changing code.
-- Fixed the setup: updated `uv`, created my own repository from the template.
-- Recorded the original notebook's scores as a baseline.
-- Moved cleaning and feature engineering into small DataFrame-in, DataFrame-out functions, checked them against the original output, then wrapped them in one scikit-learn pipeline.
-- Built the refactored notebook copy that only calls the package.
-- Moved the modeling into `modeling.py` and added the modeling fixes one at a time, measuring each.
-- Wrote unit and integration tests.
-- Built the FastAPI CRUD app with Postgres and Docker, based on the course's bonus solution, with validation limits taken from the training data, plus API tests.
+I started with a deep review of the notebook and listed everything that needed to change. From that I wrote a step-by-step plan and worked through it one step at a time, testing each step where I could.
+
+The order was: record the original notebook's scores as a baseline, move cleaning and feature engineering into functions, wrap them in one scikit-learn pipeline, then add the modeling changes one at a time and measure each. Tests, the API and Docker came last.
+
+I used Claude Code as a pair programmer: I planned and reviewed every pull request, and it wrote most of the code.
 
 ### What challenges did you face?
 
-- Deciding what belongs in the pipeline: row removal cannot be a pipeline step, but everything needed to price a new house must be.
-- Spotting the hidden leakage in the water distance feature, which only becomes visible once the step has to work on new houses.
-- The notebook's text and code disagreed (target, formulas, numbers), so every claim had to be rechecked against a real run.
-- Understanding why the split by house lowered the test score, and why that is still the right choice.
-- ElasticNet convergence warnings, which turned out to come from a duplicated column.
-- Tooling: an outdated `uv`, and ports 5432/8000 already in use on my machine.
+Reading someone else's notebook is never intuitive for me. So I first skimmed the whole notebook to get the big picture, then went back and worked through each part in detail.
+
+I knew from earlier work with this dataset that 176 houses were sold more than once. What surprised me was that the notebook missed it. It even counts the unique ids, which shows fewer ids than sales (21,420 for 21,597), and its data dictionary still calls `id` unique per sale. It then splits randomly, so the same house can land in both training and test. I split by house id instead, which gives a more honest score.
 
 ### What would you do differently if you had more time?
 
-- Add a `/predict` endpoint that serves the saved pipeline, so the API and the model are connected.
-- Model the logarithm of the price, since the price is strongly right-skewed.
-- Compare with tree-based models such as gradient boosting.
-- Repeat the experiments over several random splits to put error bars on the small differences.
-- Run the tests automatically on every pull request with GitHub Actions.
+The goal of refactoring is that a team can work with the code. So I would ask a teammate to clone the repo and run it on their own computer. It works on my laptop, but only another person on another machine finds the setup problems I can't see.
+
+I would also run the tests automatically on every pull request with GitHub Actions, the automated version of that check. And the brief only asks the API to store houses, so next I'd add a `/predict` endpoint that uses the trained model.

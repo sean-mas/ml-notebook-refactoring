@@ -154,8 +154,6 @@ I started with a deep review of the notebook and listed everything that needed t
 
 The order was: record the original notebook's scores as a baseline, move cleaning and feature engineering into functions, wrap them in one scikit-learn pipeline, then add the modeling changes one at a time and measure each. Tests, the API and Docker came last.
 
-I used Claude Code as a pair programmer: I planned and reviewed every pull request, and it wrote most of the code.
-
 ### What challenges did you face?
 
 Reading someone else's notebook is never intuitive for me. So I first skimmed the whole notebook to get the big picture, then went back and worked through each part in detail.

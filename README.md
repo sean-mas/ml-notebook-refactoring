@@ -10,6 +10,26 @@ The [original notebook](King-County.ipynb) analyzes King County house sales and 
 
 ## Project Structure
 
+The repository holds **two independent Python projects**, each with its own dependencies, lock file and tests:
+
+```
+ml-notebook-refactoring/
+├── pyproject.toml, uv.lock      ┐
+├── src/king_county/             │  1. The ML pipeline (pandas, scikit-learn)
+├── tests/                       │     33 tests: uv run pytest
+├── King-County-*.ipynb          ┘
+├── api/
+│   ├── pyproject.toml, uv.lock  ┐
+│   ├── app/                     │  2. The house API (FastAPI, Postgres, Docker)
+│   └── tests/                   ┘     15 tests: cd api && uv run pytest
+└── course/                         Material provided by the course
+```
+
+- **They share no code.** The API stores and edits houses (the CRUD stretch goal); it does not load the trained model. A prediction endpoint would be the step that connects them.
+- **Why two projects:** the API's Docker image only needs FastAPI, SQLAlchemy and a Postgres driver. Separate dependency files keep pandas and scikit-learn out of it.
+
+File by file:
+
 | Path | What it is |
 |---|---|
 | [`King-County.ipynb`](King-County.ipynb) | The original notebook, unchanged |

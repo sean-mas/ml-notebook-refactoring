@@ -1,4 +1,8 @@
-# King County House Prices: Refactoring Project
+# ML Notebook Refactoring: King County House Prices
+
+[![tests](https://github.com/sean-mas/ml-notebook-refactoring/actions/workflows/tests.yml/badge.svg)](https://github.com/sean-mas/ml-notebook-refactoring/actions/workflows/tests.yml)
+
+Built in the Spiced Academy AI Engineering bootcamp. The original notebook, the dataset and everything in [`course/`](course/) were provided by the course (© neuefische GmbH, MIT licence); everything else is the refactoring.
 
 The [original notebook](King-County.ipynb) analyzes King County house sales and predicts sale prices, but all of its logic lives in notebook cells that mutate one global DataFrame. This project moves the data cleaning, feature engineering and modeling into a tested Python package with one reusable scikit-learn pipeline, adds a FastAPI CRUD service for houses in Docker, and fixes the bugs found along the way.
 
@@ -19,7 +23,8 @@ The [original notebook](King-County.ipynb) analyzes King County house sales and 
 | [`src/king_county/plots.py`](src/king_county/plots.py) | Map helper for the notebook |
 | [`tests/`](tests/) | Unit and integration tests for the pipeline |
 | [`api/`](api/) | FastAPI CRUD app for houses with Postgres, Docker and API tests ([README](api/README.md)) |
-| [`bonus_solution/`](bonus_solution/) | The course's reference API, kept for comparison |
+| [`.github/workflows/tests.yml`](.github/workflows/tests.yml) | Runs both test suites and starts the API in Docker on every push and pull request |
+| [`course/`](course/) | Material provided by the course: the brief, the grading checklist and the reference API ([README](course/README.md)) |
 
 ## The Pipeline
 
@@ -65,7 +70,7 @@ Run the pipeline tests:
 uv run pytest
 ```
 
-Open [`King-County-refactored.ipynb`](King-County-refactored.ipynb) in VS Code, select the `.venv` kernel and run all cells.
+Open [`King-County-refactored.ipynb`](King-County-refactored.ipynb) in VS Code, select the `.venv` kernel and run all cells. Its three maps are interactive Plotly charts, which GitHub's notebook preview cannot draw.
 
 Run the API in Docker (host ports 8001 and 5433), then open <http://localhost:8001/docs>:
 
@@ -146,7 +151,7 @@ Cell numbers refer to [`King-County.ipynb`](King-County.ipynb), counted from 0.
 | P22 | Polynomial features not scaled before `LinearRegression` | `StandardScaler` in every model pipeline |
 | P23 | The `alpha` grid's smallest value (0.01) always won, so the best value lay outside the grid | Grid extended to 0.001; lower values do not converge and gain less than 0.002 |
 
-## Answers to the Project Questions
+## Answers to the Project Questions (as submitted on 28.10.2026)
 
 ### What steps did you take to complete the project?
 

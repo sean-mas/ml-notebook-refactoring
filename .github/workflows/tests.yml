@@ -1,0 +1,38 @@
+# Runs on every push to main and every pull request. Calls no external
+# services, so it is free and fast.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Pipeline tests
+        run: uv run --locked pytest -q
+
+  api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+
+      - name: API tests
+        run: uv run --locked pytest -q
+
+      # The same smoke test as the README: build, start with Postgres, answer.
+      - name: API runs in Docker
+        run: |
+          cp .env.example .env
+          docker compose up --build --wait
+          curl -fsS http://localhost:8001/
+          docker compose down -v

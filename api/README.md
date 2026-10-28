@@ -1,6 +1,6 @@
 # King County House API
 
-A small FastAPI app that creates, reads, updates and deletes houses stored in Postgres. It runs in Docker next to its database and is adapted from the course reference in [`../bonus_solution/`](../bonus_solution/).
+A small FastAPI app that creates, reads, updates and deletes houses stored in Postgres. It runs in Docker next to its database and is adapted from the course reference in [`../course/bonus_solution/`](../course/bonus_solution/).
 
 ## The Five Fields
 

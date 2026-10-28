@@ -1,6 +1,6 @@
 # Project Description
 
-You will work with the [King County Jupyter notebook](./King-County.ipynb), which already contains exploratory data analysis, data cleaning, feature engineering, and several Machine Learning models.
+You will work with the [King County Jupyter notebook](../King-County.ipynb), which already contains exploratory data analysis, data cleaning, feature engineering, and several Machine Learning models.
 
 The main focus of this project is the refactoring of the data cleaning and feature engineering workflow. The modeling section stays in the notebook so you can see how those transformed features are used later in a full Machine Learning workflow.
 

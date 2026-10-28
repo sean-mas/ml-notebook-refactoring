@@ -1,0 +1,4 @@
+# Keep GitHub's language bar about the code: the notebooks are reports and
+# course/ is provided material.
+*.ipynb linguist-documentation
+course/** linguist-vendored
